@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import moment from 'moment';
+import { getState } from "./GetState"
 
 export class Calendar extends Component {
     constructor(props) {
@@ -9,7 +10,7 @@ export class Calendar extends Component {
         this.state = props.location.state;
         if (this.state === undefined || this.state === null) {
             let date = new Date();
-            this.state = this.getState(date);
+            this.state = getState(date);
         }
 
         this.getData(this.state.date).then(o => {
@@ -27,22 +28,10 @@ export class Calendar extends Component {
         return data;
     }
 
-    getState(date) {
-        let today = new Date();
-
-        return {
-            date: date,
-            days: moment(date).daysInMonth(),
-            offset: moment(date).startOf('month').day() - 1,
-            today: today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth() ? today.getDate() : 0,
-            busyDays: []
-        };
-    }
-
     previousMonth() {
         let date = moment(this.state.date).add(-1, 'months').toDate();
         this.getData(date).then(o => {
-            let state = this.getState(date);
+            let state = getState(date);
             state.busyDays = o;
             this.setState(state);
         });
@@ -51,7 +40,7 @@ export class Calendar extends Component {
     nextMonth() {
         let date = moment(this.state.date).add(1, 'months').toDate();
         this.getData(date).then(o => {
-            let state = this.getState(date);
+            let state = getState(date);
             state.busyDays = o;
             this.setState(state);
         });
@@ -59,7 +48,7 @@ export class Calendar extends Component {
 
     getDayRoute(day) {
         let date = moment(this.state.date).set("date", day).toDate();
-        let state = this.getState(date);
+        let state = getState(date);
 
         return { pathname: "day", state: state };
     }
@@ -77,11 +66,11 @@ export class Calendar extends Component {
                                 ${day > 0 && day == this.state.today ? "calendar-day-today" : ""}`
 
                 let tile = inx >= this.state.offset + 7 && inx < this.state.offset + this.state.days + 7 ?
-                    <a href="#" className={tileClass} onClick={this.getDayRoute(day)}>
+                    <Link to={this.getDayRoute(day)} className={tileClass}>
                         <div className="text-chonk">
                             {day}
                         </div>
-                    </a>
+                    </Link>
                     : null;
 
                 columns.push(
@@ -112,9 +101,9 @@ export class Calendar extends Component {
                             </div>
                         </a>
                     </div>
-                    <div className="col">
+                    <div className="col-8">
                         <div className="text-center">
-                            {moment(this.state.date).format('MMM YYYY')}
+                            {moment(this.state.date).format('MMMM YYYY')}
                         </div>
                     </div>
                     <div className="col">
