@@ -34,6 +34,26 @@ export class Day extends Component {
         return { pathname: "event", state: state }
     }
 
+    getEditRoute(event) {
+        let state = Object.assign({}, this.state);
+        state.event = event;
+        return { pathname: "event", state: state };
+    }
+
+    deleteEvent(event) {
+        let date = this.state.date;
+        fetch(`api/RemoveEvent?year=${date.getFullYear()}&month=${date.getMonth() + 1}&day=${date.getDate()}&id=${event.id}`, {
+            method: 'POST'
+        }).then(() => {
+            this.getData(this.state.date).then(o => {
+                let state = {
+                    events: o
+                };
+                this.setState(state);
+            });
+        });
+    }
+
     dayContent() {
         let rows = []
         if (this.state.events.length == 0) {
@@ -53,10 +73,14 @@ export class Day extends Component {
                         {this.state.events[i].name}
                     </div>
                     <div class="col-1 text-right">
-                        Edit
+                        <Link className="hyperlink" to={this.getEditRoute(this.state.events[i])}>
+                            Edit
+                        </Link>
                     </div>
                     <div class="col-1 text-right">
-                        Delete
+                        <a className="hyperlink" href="javascript:undefined" onClick={() => this.deleteEvent(this.state.events[i])}>
+                            Delete
+                        </a>
                     </div>
                 </div>
             );

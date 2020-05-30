@@ -62,7 +62,7 @@ export class Calendar extends Component {
                 let day = inx - this.state.offset - 6;
                 let tileClass = `hyperlink calendar-day
                                 ${inx % 7 == 6 ? "calendar-day-sun" : ""}
-                                ${this.state.busyDays.find(o => o === day) > 0 ? "calendar-day-busy" : ""}
+                                ${this.state.busyDays.find(o => o === day) > 0 && day != this.state.today ? "calendar-day-busy" : ""}
                                 ${day > 0 && day == this.state.today ? "calendar-day-today" : ""}`
 
                 let tile = inx >= this.state.offset + 7 && inx < this.state.offset + this.state.days + 7 ?

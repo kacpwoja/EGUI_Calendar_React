@@ -14,6 +14,7 @@ export class Event extends Component {
         if (this.state === undefined || this.state === null) {
             let date = new Date();
             this.state = getState(date);
+            this.state.event = null;
         }
 
         if (this.state.event === null) {
@@ -49,7 +50,24 @@ export class Event extends Component {
     }
 
     editEvent() {
+        let date = this.state.date;
+        let time = this.timeRef.current.value;
+        let name = this.nameRef.current.value;
+        let id = this.state.event.id
 
+        fetch(`api/EditEvent?year=${date.getFullYear()}&month=${date.getMonth() + 1}&day=${date.getDate()}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id,
+                time: `${time}:00`,
+                name: name
+            }),
+        }).then(() => {
+            this.props.history.push({ pathname: "day", state: this.state });
+        });
     }
 
     sumbitHandler(e) {
@@ -97,7 +115,7 @@ export class Event extends Component {
                             Name
                         </div>
                         <div className="col">
-                            <input ref={this.nameRef} className="input" type="name" name="name" maxLength="150" defaultValue={this.state.event.name} required />
+                            <input ref={this.nameRef} className="input w-100" type="name" name="name" maxLength="150" defaultValue={this.state.event.name} required />
                         </div>
                     </div>
                     <div className="row text-chonk">

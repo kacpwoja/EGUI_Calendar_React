@@ -111,7 +111,7 @@ namespace EGUI_Calendar_React.Controllers
         [HttpPost("RemoveEvent")]
         public IActionResult RemoveEvent(int? year, int? month, int? day, Guid? id)
         {
-            if (!year.HasValue || !month.HasValue || !day.HasValue || id.HasValue) return BadRequest();
+            if (!year.HasValue || !month.HasValue || !day.HasValue || !id.HasValue) return BadRequest();
 
             try
             {
