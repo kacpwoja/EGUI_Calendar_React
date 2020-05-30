@@ -12,3 +12,60 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+/* My CSS */
+:root {
+    --color1: #1d3557;
+    --color2: #457b9d;
+    --color3: #a8dadc;
+    --color4: #f1faee;
+    --color5: #e63946;
+    --colortext1: white;
+    --colortext2: black;
+    --colorbg: white;
+    background-color: var(--colorbg);
+}
+
+.text-chonk {
+    background-color: inherit;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.text-chonker {
+    background-color: inherit;
+    font-size: 2.0rem;
+    font-weight: 300;
+}
+
+.hyperlink, .hyperlink:hover {
+    color: inherit
+}
+
+.calendar-day {
+    background-color: inherit;
+    color: var(--colortext2);
+}
+
+.calendar-day-sun {
+    background-color: inherit;
+    color: var(--color5);
+}
+
+.calendar-day-today {
+    background-color: var(--color3)
+}
+
+.calendar-day-busy {
+    background-color: var(--color4)
+}
+
+.navigation {
+    background-color: var(--color2);
+    color: var(--colortext1);
+}
+
+.headerbar {
+    background-color: var(--color3);
+    color: var(--colortext2);
+}
