@@ -66,7 +66,6 @@ namespace EGUI_Calendar_React.Controllers
                 !month.HasValue ||
                 !day.HasValue ||
                 eventData == null ||
-                eventData.ID == null ||
                 eventData.Time == null ||
                 eventData.Name == null)
                 return BadRequest();
