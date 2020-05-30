@@ -1,3 +1,4 @@
+using EGUI_Calendar_React.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -20,6 +21,7 @@ namespace EGUI_Calendar_React
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<EventsContext>();
 
             services.AddControllersWithViews();
 
@@ -54,7 +56,7 @@ namespace EGUI_Calendar_React
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action}");
             });
 
             app.UseSpa(spa =>

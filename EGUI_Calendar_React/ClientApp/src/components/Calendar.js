@@ -1,14 +1,142 @@
-﻿import React, { Component } from 'react'
+﻿import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import moment from 'moment';
 
 export class Calendar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = props.location.state;
+        if (this.state === undefined || this.state === null) {
+            let date = new Date();
+            this.state = this.getState(date);
+        }
+
+        this.getData(this.state.date).then(o => {
+            let state = {
+                busyDays: o
+            };
+            this.setState(state);
+        });
+    }
+
+    async getData(date) {
+        console.a = date;
+        const response = await fetch(`api/GetBusyDays?year=${date.getFullYear()}&month=${date.getMonth() + 1}`);
+        const data = await response.json();
+        return data;
+    }
+
+    getState(date) {
+        let today = new Date();
+
+        return {
+            date: date,
+            days: moment(date).daysInMonth(),
+            offset: moment(date).startOf('month').day() - 1,
+            today: today.getFullYear() === date.getFullYear() && today.getMonth() === date.getMonth() ? today.getDate() : 0,
+            busyDays: []
+        };
+    }
+
+    previousMonth() {
+        let date = moment(this.state.date).add(-1, 'months').toDate();
+        this.getData(date).then(o => {
+            let state = this.getState(date);
+            state.busyDays = o;
+            this.setState(state);
+        });
+    }
+
+    nextMonth() {
+        let date = moment(this.state.date).add(1, 'months').toDate();
+        this.getData(date).then(o => {
+            let state = this.getState(date);
+            state.busyDays = o;
+            this.setState(state);
+        });
+    }
+
+    getDayRoute(day) {
+        let date = moment(this.state.date).set("date", day).toDate();
+        let state = this.getState(date);
+
+        return { pathname: "day", state: state };
+    }
+
+    calendarContent() {
+        let rows = [];
+        for (let i = 0; i < 6; i++) {
+            let columns = [];
+            for (let j = 0; j < 7; j++) {
+                let inx = i * 7 + j;
+                let day = inx - this.state.offset - 6;
+                let tileClass = `hyperlink calendar-day
+                                ${inx % 7 == 6 ? "calendar-day-sun" : ""}
+                                ${this.state.busyDays.find(o => o === day) > 0 ? "calendar-day-busy" : ""}
+                                ${day > 0 && day == this.state.today ? "calendar-day-today" : ""}`
+
+                let tile = inx >= this.state.offset + 7 && inx < this.state.offset + this.state.days + 7 ?
+                    <a href="#" className={tileClass} onClick={this.getDayRoute(day)}>
+                        <div className="text-chonk">
+                            {day}
+                        </div>
+                    </a>
+                    : null;
+
+                columns.push(
+                    <div key={j} className="col">
+                        {tile}
+                    </div>
+                );
+            }
+
+            rows.push(
+                <div key={i} className="row">
+                    {columns}
+                </div>
+            );
+        }
+
+        return rows;
+    }
+
     render() {
         return (
             <div>
                 <div className="row headerbar text-chonker">
                     <div className="col">
-                        Calendar Component
+                        <a className="hyperlink" href="#" onClick={this.previousMonth.bind(this)}>
+                            <div className="text-left">
+                                {"<"}
+                            </div>
+                        </a>
+                    </div>
+                    <div className="col">
+                        <div className="text-center">
+                            {moment(this.state.date).format('MMM YYYY')}
+                        </div>
+                    </div>
+                    <div className="col">
+                        <a className="hyperlink" href="#" onClick={this.nextMonth.bind(this)}>
+                            <div className="text-right">
+                                {">"}
+                            </div>
+                        </a>
                     </div>
                 </div>
+
+                <div className="row text-chonk">
+                    <div className="col">Mon</div>
+                    <div className="col">Tue</div>
+                    <div className="col">Wed</div>
+                    <div className="col">Thu</div>
+                    <div className="col">Fri</div>
+                    <div className="col">Sat</div>
+                    <div className="col calendar-day-sun">Sun</div>
+                </div>
+
+                {this.calendarContent()}
             </div>
         );
     }
