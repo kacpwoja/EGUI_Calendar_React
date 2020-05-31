@@ -94,25 +94,21 @@ export class Calendar extends Component {
         return (
             <div>
                 <div className="row headerbar text-chonker">
-                    <div className="col">
-                        <a className="hyperlink" href="#" onClick={this.previousMonth.bind(this)}>
-                            <div className="text-left">
-                                {"<"}
-                            </div>
-                        </a>
-                    </div>
+                    <a className="col hyperlink" href="#" onClick={this.previousMonth.bind(this)}>
+                        <div className="text-left">
+                            {"<"}
+                        </div>
+                    </a>
                     <div className="col-8">
                         <div className="text-center">
                             {moment(this.state.date).format('MMMM YYYY')}
                         </div>
                     </div>
-                    <div className="col">
-                        <a className="hyperlink" href="#" onClick={this.nextMonth.bind(this)}>
-                            <div className="text-right">
-                                {">"}
-                            </div>
-                        </a>
-                    </div>
+                    <a className="col hyperlink" href="#" onClick={this.nextMonth.bind(this)}>
+                        <div className="text-right">
+                            {">"}
+                        </div>
+                    </a>
                 </div>
 
                 <div className="row text-chonk">

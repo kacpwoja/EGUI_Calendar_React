@@ -89,12 +89,10 @@ export class Event extends Component {
         return (
             <div>
                 <div className="row headerbar text-chonker">
-                    <div className="col text-left">
-                        <Link className="hyperlink" to={{ pathname: "day", state: this.state }}>
-                            {"<"}
-                        </Link>
-                    </div>
-                    <div className="col-10 text-center">
+                    <Link className="col text-left hyperlink" to={{ pathname: "day", state: this.state }}>
+                        {"<"}
+                    </Link>
+                    <div className="col-8 text-center">
                         {this.title}
                     </div>
                     <div className="col text-right">
@@ -115,12 +113,12 @@ export class Event extends Component {
                             Name
                         </div>
                         <div className="col">
-                            <input ref={this.nameRef} className="input w-100" type="name" name="name" maxLength="150" defaultValue={this.state.event.name} required />
+                            <input ref={this.nameRef} className="input w-100" type="name" name="name" maxLength="150" defaultValue={this.state.event.name} placeholder="Input the name here" required />
                         </div>
                     </div>
                     <div className="row text-chonk">
                         <div className="col">
-                            <input className="hyperlink submit-button" type="submit" value={this.state.event.id !== null ? "Confirm Edit" : "Create Event" } />
+                            <input className="mybutton hyperlink" type="submit" value={this.state.event.id !== null ? "Confirm Edit" : "Create Event" } />
                         </div>
                     </div>
                 </form>

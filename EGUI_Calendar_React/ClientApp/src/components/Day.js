@@ -93,19 +93,15 @@ export class Day extends Component {
         return (
             <div>
                 <div className="row headerbar text-chonker">
-                    <div className="col text-left">
-                        <Link className="hyperlink" to={{ pathname: "/", state: this.state }}>
-                            {"<"}
-                        </Link>
-                    </div>
+                    <Link className="col hyperlink text-left" to={{ pathname: "/", state: this.state }}>
+                        {"<"}
+                    </Link>
                     <div className="col-8 text-center">
                         {moment(this.state.date).format('dddd, Do [of] MMMM YYYY')}
                     </div>
-                    <div className="col text-right">
-                        <Link className="hyperlink" to={this.getCreateRoute()}>
-                            {"+"}
-                        </Link>
-                    </div>
+                    <Link className="col hyperlink text-right" to={this.getCreateRoute()}>
+                        {"+"}
+                    </Link>
                 </div>
 
                 {this.dayContent()}

@@ -14,8 +14,9 @@ code {
 }
 
 /* My CSS */
+
 :root {
-    --color1: #1d3557;
+    --color1: #AFC2D5;
     --color2: #457b9d;
     --color3: #a8dadc;
     --color4: #f1faee;
@@ -23,7 +24,38 @@ code {
     --colortext1: white;
     --colortext2: black;
     --colorbg: white;
+    --transtime: 200ms
+}
+
+.darktheme {
+    --color1: #CCC9DC;
+    --color2: #0C1821;
+    --color3: #1B2A41;
+    --color4: #324A5F;
+    --color5: #DF2935;
+    --colortext1: black;
+    --colortext2: white;
+    --colorbg: #000000;
+}
+
+body {
+    background: var(--colorbg);
+    color: var(--colortext2);
+
+    transition: background 1000ms ease-in-out, color 1000ms ease-in-out;
+}
+
+.mybutton {
+    background-color: var(--color3);
+    color: var(--colortext2);
+}
+
+.input {
     background-color: var(--colorbg);
+    color: var(--colortext2);
+    border: none;
+    transition: inherit;
+    transition: background 1000ms ease-in-out, color 1000ms ease-in-out;
 }
 
 .text-chonk {
@@ -38,8 +70,17 @@ code {
     font-weight: 300;
 }
 
-.hyperlink, .hyperlink:hover {
-    color: inherit
+.hyperlink {
+    color: inherit;
+    text-decoration: none;
+    transition: background-color var(--transtime) ease-in-out, color var(--transtime) ease-in-out;
+}
+
+.hyperlink:hover {
+    background-color: var(--color1);
+    color: black;
+    text-decoration: none;
+    transition: background-color var(--transtime) ease-in-out, color var(--transtime) ease-in-out;
 }
 
 .calendar-day {
@@ -53,19 +94,21 @@ code {
 }
 
 .calendar-day-today {
-    background-color: var(--color3)
+    background-color: var(--color3);
 }
 
 .calendar-day-busy {
-    background-color: var(--color4)
+    background-color: var(--color4);
 }
 
 .navigation {
     background-color: var(--color2);
     color: var(--colortext1);
+    transition: background 1000ms ease-in-out, color 1000ms ease-in-out;
 }
 
 .headerbar {
     background-color: var(--color3);
     color: var(--colortext2);
+    transition: background 1000ms ease-in-out, color 1000ms ease-in-out;
 }

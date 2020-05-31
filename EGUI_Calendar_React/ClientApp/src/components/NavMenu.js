@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink, Button, ButtonToggle } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
@@ -19,12 +19,21 @@ export class NavMenu extends Component {
     this.setState({
       collapsed: !this.state.collapsed
     });
-  }
+    }
+
+    changeTheme() {
+        if (document.body.classList.contains("darktheme")) {
+            document.body.classList.remove("darktheme");
+        }
+        else {
+            document.body.classList.add("darktheme");
+        }
+    }
 
   render () {
     return (
       <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3 navigation" light>
+        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white box-shadow mb-3 navigation" light>
           <Container>
             <NavbarBrand className="text-white" tag={Link} to="/">Calendar</NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
@@ -38,6 +47,9 @@ export class NavMenu extends Component {
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-white" to="/info">Info</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={ButtonToggle} className="text-white" onClick={this.changeTheme}>Change Theme</NavLink>
                 </NavItem>
               </ul>
             </Collapse>
