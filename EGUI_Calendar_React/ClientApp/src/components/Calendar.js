@@ -19,6 +19,8 @@ export class Calendar extends Component {
             };
             this.setState(state);
         });
+
+        document.title = `${moment(this.state.date).format("MMMM YYYY")} - Calendar`
     }
 
     async getData(date) {
@@ -35,6 +37,7 @@ export class Calendar extends Component {
             state.busyDays = o;
             this.setState(state);
         });
+        document.title = `${moment(date).format("MMMM YYYY")} - Calendar`
     }
 
     nextMonth() {
@@ -44,6 +47,7 @@ export class Calendar extends Component {
             state.busyDays = o;
             this.setState(state);
         });
+        document.title = `${moment(date).format("MMMM YYYY")} - Calendar`
     }
 
     getDayRoute(day) {

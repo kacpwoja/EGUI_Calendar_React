@@ -19,6 +19,7 @@ export class Event extends Component {
 
         if (this.state.event === null) {
             this.title = `New Event at ${moment(this.state.date).format('YYYY-MM-DD')}`;
+            document.title = `New Event - Calendar`;
             this.state.event = {
                 id: null,
                 time: "00:00",
@@ -27,7 +28,9 @@ export class Event extends Component {
         }
         else {
             this.title = `${this.state.event.name} at ${moment(this.state.date).format('YYYY-MM-DD')}`;
+            document.title = `${this.state.event.name} - Calendar`;
         }
+
     }
 
     newEvent() {

@@ -1,6 +1,11 @@
 ﻿import React, { Component } from 'react'
 
 export class Info extends Component {
+    constructor(props) {
+        super(props);
+
+        document.title = `Info - Calendar`;
+    }
     render() {
         return (
             <div>

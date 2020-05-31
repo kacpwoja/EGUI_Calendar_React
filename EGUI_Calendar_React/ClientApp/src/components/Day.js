@@ -20,6 +20,8 @@ export class Day extends Component {
             };
             this.setState(state);
         });
+
+        document.title = `${moment(this.state.date).format("DD MMMM YYYY")} - Calendar`
     }
 
     async getData(date) {
